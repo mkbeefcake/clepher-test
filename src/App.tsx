@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
+import { SWRConfig } from 'swr';
+import fetcher from './apis/fetcher';
+import Main from './components/Main';
 
 function App() {
   return (
-    <div className='flex items-center justify-center h-screen'>
-      <h1 className='text-4xl font-bold text-blue-500'>TailwindCSS is working</h1>
-    </div>
+    <SWRConfig value={{ fetcher, suspense: true}}>
+      <Main/>
+    </SWRConfig>
   );
 }
 
