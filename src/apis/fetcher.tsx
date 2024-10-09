@@ -4,8 +4,9 @@ const fetcher = (url: string) => {
             return response.json()
         }
 
+        const errorData = response.json()
         return {
-            error: true
+            error: true,
         }
     })
 }
