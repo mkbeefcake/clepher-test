@@ -7,6 +7,7 @@ import {
 
 import mockData from '../mock/response.json'
 import { convertObjToTimeSeriesResponse, ResponseTimeSeriesResponse } from "../apis/responseTypes"
+import MetaDataCard from "./cards/MetaData"
 
 const TimeSeries = () => {
     const intraDayRequest: TimeSeriesIntraDayRequest = {
@@ -19,7 +20,14 @@ const TimeSeries = () => {
 
     return (
         <div className='flex items-center justify-center h-screen'>
-            <h1 className='text-xs font-bold text-blue-500'>{JSON.stringify(response["Meta Data"])}</h1>
+            <MetaDataCard metaData={{
+                information: response["Meta Data"].Information || "",
+                interval: response["Meta Data"].Interval || "",
+                lastRefreshed: response["Meta Data"]["Last Refreshed"] || "",
+                outputSize: response["Meta Data"]["Output Size"] || "",
+                symbol: response["Meta Data"].Symbol || "",
+                timeZone: response["Meta Data"]["Time Zone"] || ""
+            }} />
             {/* <h1 className='text-xs font-bold text-blue-500'>{JSON.stringify(mockData["Meta Data"])}</h1> */}
         </div>
     )
