@@ -1,13 +1,12 @@
 import useSWR from "swr"
 import { INTRADAY_API_ENDPOINT } from "../apis/alphaVantage"
-import IntraDay from "./IntraDay"
+import TimeSeries from "./TimeSeries"
 
 const Main = () => {
 
     return (
         <div className='flex flex-wrap justify-around items-center p-4'>
-            <IntraDay/>
-            <IntraDay/>
+            <TimeSeries/>
         </div>
     )
 }
