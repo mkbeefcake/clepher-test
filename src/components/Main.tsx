@@ -1,5 +1,3 @@
-import useSWR from "swr"
-import { INTRADAY_API_ENDPOINT } from "../apis/alphaVantage"
 import TimeSeries from "./TimeSeries"
 
 const Main = () => {

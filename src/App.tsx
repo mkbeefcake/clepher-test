@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { SWRConfig } from 'swr';
-import fetcher from './apis/fetcher';
+import { fetcher } from './apis/utils';
 import Main from './components/Main';
 
 function App() {
