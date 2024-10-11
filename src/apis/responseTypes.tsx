@@ -68,6 +68,10 @@ export interface ResponseErrorResponse {
     "Information": string;
 }
 
+export const isTimeSeries = (obj:any): obj is ResponseTimeSeriesResponse => "Meta Data" in obj && "Time Series" in obj
+export const isMarketStatus = (obj:any): obj is ResponseMarketStatusResponse => "endpoint" in obj && "markets" in obj
+export const isErrorResponse = (obj:any): obj is ResponseErrorResponse => "Information" in obj
+
 export const convertObjToTimeSeriesResponse = (obj: any): ResponseTimeSeriesResponse | ResponseErrorResponse | ResponseMarketStatusResponse => {
     let newData: Partial<ResponseTimeSeriesResponse> & 
                  Partial<ResponseErrorResponse> & 
@@ -91,15 +95,15 @@ export const convertObjToTimeSeriesResponse = (obj: any): ResponseTimeSeriesResp
     }
 
     // Type guard
-    if ("Meta Data" in newData && "Time Series" in newData) {
+    if (isTimeSeries(newData)) {
         return newData as ResponseTimeSeriesResponse;
     }
 
-    if ("endpoint" in newData && "markets" in newData) {
+    if (isMarketStatus(newData)) {
         return newData as ResponseMarketStatusResponse;
     }
 
-    if ("Information" in newData) {
+    if (isErrorResponse(newData)) {
         return newData as ResponseErrorResponse;
     }
 

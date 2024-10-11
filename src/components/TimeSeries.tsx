@@ -39,6 +39,9 @@ import mockData1 from '../mock/response1.json'
 import mockData2 from '../mock/response2.json'
 import { 
     convertObjToTimeSeriesResponse, 
+    isErrorResponse, 
+    isMarketStatus, 
+    isTimeSeries, 
     ResponseErrorResponse, 
     ResponseMarketStatusResponse, 
     ResponseTimeSeriesResponse 
@@ -192,13 +195,9 @@ const TimeSeries = () => {
 
     const { data } = useSWR(apiUrl)
     const response: ResponseTimeSeriesResponse | ResponseErrorResponse | ResponseMarketStatusResponse 
-        = convertObjToTimeSeriesResponse(data);
+        = convertObjToTimeSeriesResponse(mockData2);
 
     console.log(data)
-
-    const isTimeSeries = (obj:any): obj is ResponseTimeSeriesResponse => "Meta Data" in response && "Time Series" in response
-    const isMarketStatus = (obj:any): obj is ResponseMarketStatusResponse => "endpoint" in response && "markets" in response
-    const isErrorResponse = (obj:any): obj is ResponseErrorResponse => "Information" in response
 
     return (
         <div className='flex items-start justify-center h-screen space-x-6'>
