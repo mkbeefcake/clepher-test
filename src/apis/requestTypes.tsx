@@ -16,12 +16,15 @@ interface TimeSeriesBaseRequest extends BaseRequest {
     symbol: string;
 }
 
+export type intervalType = "1min" | "5min" | "15min" | "30min" | "60min";
+export type outputSizeType = "compact" | "full";
+
 export interface TimeSeriesIntraDayRequest extends TimeSeriesBaseRequest {    
-    interval: "1min" | "5min" | "15min" | "30min" | "60min"; 
+    interval: intervalType; 
     adjusted?: boolean;
     extended_hours?: boolean;
     month?: string; 
-    outputsize?: "compact" | "full"; 
+    outputsize?: outputSizeType; 
 }
 
 export const createBaseTimeSeriesIntraDayRequest = () => {
@@ -32,7 +35,7 @@ export const createBaseTimeSeriesIntraDayRequest = () => {
 }
 
 export interface TimeSeriesDailyRequest extends TimeSeriesBaseRequest {
-    outputsize?: "compact" | "full"; 
+    outputsize?: outputSizeType; 
 }
 
 export const createBaseTimeSeriesDailyRequest = () => {
@@ -43,7 +46,7 @@ export const createBaseTimeSeriesDailyRequest = () => {
 }
 
 export interface TimeSeriesDailyAdjustedRequest extends TimeSeriesBaseRequest {
-    outputsize?: "compact" | "full"; 
+    outputsize?: outputSizeType; 
 }
 
 export const createBaseTimeSeriesDailyAdjustedRequest = () => {

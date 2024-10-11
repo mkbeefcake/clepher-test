@@ -17,14 +17,14 @@ interface TradeChartProps {
 }
 
 const TradeChart: React.FC<TradeChartProps> = ({ data }) => {
-    const chartData = Object.entries(data).map(([date, values]) => ({
+    const chartData = data ? Object.entries(data).map(([date, values]) => ({
         date,
         open: parseFloat(values.open),
         high: parseFloat(values.high),
         low: parseFloat(values.low),
         close: parseFloat(values.close),
         volume: parseInt(values.volume),
-    })).slice(-15);
+    })).slice(-15) : [];
 
     const minValue = chartData.reduce(
         (minValue, { open, low, close }) => {
@@ -40,13 +40,12 @@ const TradeChart: React.FC<TradeChartProps> = ({ data }) => {
         },
         minValue,
     );
-
-    console.log(minValue, maxValue)
+    
     return (
         <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={chartData} width={600} height={300}>
+            <LineChart data={chartData} >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
+                <XAxis dataKey="date"/>
                 <YAxis domain={[minValue, maxValue]} />
                 <Tooltip />
                 <Legend />
