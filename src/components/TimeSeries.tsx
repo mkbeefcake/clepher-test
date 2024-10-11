@@ -50,6 +50,7 @@ import BasicDropdown from "./dropdowns/BasicDropDown"
 import BasicCard from "./cards/BasicCard"
 import BasicButton from "./button/BasicButton"
 import MarketStatusCard from "./cards/MarketStatusCard"
+import BasicInput from "./input/BasicInput"
 
 const TimeSeries = () => {
 
@@ -57,6 +58,7 @@ const TimeSeries = () => {
     const [apiType, setApiType ] = useState<string | undefined>();
     const [symbol, setSymbol] = useState<string | undefined>();
     const [interval, setInterval] = useState<string | undefined>();
+    const [apiKey, setApiKey] = useState<string>("");
 
     const apiTypes = ["IntraDay", "Daily", "DailyAdjusted", "Weekly", "WeeklyAdjusted", "Monthly", "MonthlyAdjusted", "Quote", "MarketStatus"]
     const apiSymbols = ["IBM"]
@@ -64,6 +66,10 @@ const TimeSeries = () => {
 
     const isDisabledSymbol = apiType == 'MarketStatus'
     const isDisabledInterval = apiType != 'IntraDay'
+
+    const onChangeApiKey = (e:any) => {
+        setApiKey(e.target.value)
+    }
 
     const onHandleGet = () => {
         switch (apiType) {
@@ -74,7 +80,7 @@ const TimeSeries = () => {
                 }
 
                 const intraDayRequest: TimeSeriesIntraDayRequest = {
-                    ...createBaseTimeSeriesIntraDayRequest(),
+                    ...createBaseTimeSeriesIntraDayRequest(apiKey),
                     symbol: symbol,
                     interval: interval as intervalType,
                 }
@@ -88,7 +94,7 @@ const TimeSeries = () => {
                 }
 
                 const dailyRequest: TimeSeriesDailyRequest = {
-                    ...createBaseTimeSeriesDailyRequest(),
+                    ...createBaseTimeSeriesDailyRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesDaily(dailyRequest)));
@@ -101,7 +107,7 @@ const TimeSeries = () => {
                 }
 
                 const dailyAdjustedRequest: TimeSeriesDailyAdjustedRequest = {
-                    ...createBaseTimeSeriesDailyAdjustedRequest(),
+                    ...createBaseTimeSeriesDailyAdjustedRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesDailyAdjusted(dailyAdjustedRequest)));
@@ -114,7 +120,7 @@ const TimeSeries = () => {
                 }
 
                 const weeklyRequest: TimeSeriesWeeklyRequest = {
-                    ...createBaseTimeSeriesWeeklyRequest(),
+                    ...createBaseTimeSeriesWeeklyRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesWeekly(weeklyRequest)));
@@ -127,7 +133,7 @@ const TimeSeries = () => {
                 }
 
                 const weeklyAdjustedRequest: TimeSeriesWeeklyAdjustedRequest = {
-                    ...createBaseTimeSeriesWeeklyAdjustedRequest(),
+                    ...createBaseTimeSeriesWeeklyAdjustedRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesWeeklyAdjusted(weeklyAdjustedRequest)));
@@ -140,7 +146,7 @@ const TimeSeries = () => {
                 }
 
                 const monthlyRequest: TimeSeriesMonthlyRequest = {
-                    ...createBaseTimeSeriesMonthlyRequest(),
+                    ...createBaseTimeSeriesMonthlyRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesMonthly(monthlyRequest)));
@@ -153,7 +159,7 @@ const TimeSeries = () => {
                 }
 
                 const monthlyAdjustedRequest: TimeSeriesMonthlyAdjustedRequest = {
-                    ...createBaseTimeSeriesMonthlyAdjustedRequest(),
+                    ...createBaseTimeSeriesMonthlyAdjustedRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesMonthlyAdjusted(monthlyAdjustedRequest)));
@@ -166,7 +172,7 @@ const TimeSeries = () => {
                 }
 
                 const quoteRequest: TimeSeriesQuoteRequest = {
-                    ...createBaseTimeSeriesQuoteRequest(),
+                    ...createBaseTimeSeriesQuoteRequest(apiKey),
                     symbol: symbol
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesQuote(quoteRequest)));
@@ -174,7 +180,7 @@ const TimeSeries = () => {
 
             case "MarketStatus":
                 const marketRequest: TimeSeriesMarketStatusRequest = {
-                    ...createBaseTimeSeriesMarketStatusRequest(),                    
+                    ...createBaseTimeSeriesMarketStatusRequest(apiKey),                    
                 }
                 startTransition(() => setApiUrl(apiTimeSeriesMarketStatus(marketRequest)));
                 break;
@@ -216,6 +222,11 @@ const TimeSeries = () => {
                     options={apiIntervals}
                     value={interval}
                     onSelect={(option) => setInterval(option)}
+                />
+                <BasicInput
+                    label="API KEY"
+                    value={apiKey}
+                    onChange={onChangeApiKey}
                 />
                 <BasicButton
                     label="Get"

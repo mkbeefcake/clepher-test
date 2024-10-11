@@ -5,9 +5,9 @@ export interface BaseRequest {
     datatype?: "json" | "csv";
 }
 
-const createBaseRequest = () => {
+const createBaseRequest = (apiKey?: string) => {
     return {
-        apikey: process.env.REACT_APP_ALPHA_VANTAGE_KEY || "",
+        apikey: apiKey ? apiKey : process.env.REACT_APP_ALPHA_VANTAGE_KEY || "",
         datatype: "json" as "json"
     }
 }
@@ -27,9 +27,9 @@ export interface TimeSeriesIntraDayRequest extends TimeSeriesBaseRequest {
     outputsize?: outputSizeType; 
 }
 
-export const createBaseTimeSeriesIntraDayRequest = () => {
+export const createBaseTimeSeriesIntraDayRequest = (apiKey?: string) => {
     return { 
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_INTRADAY"
     }
 }
@@ -38,9 +38,9 @@ export interface TimeSeriesDailyRequest extends TimeSeriesBaseRequest {
     outputsize?: outputSizeType; 
 }
 
-export const createBaseTimeSeriesDailyRequest = () => {
+export const createBaseTimeSeriesDailyRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_DAILY"
     }
 }
@@ -49,9 +49,9 @@ export interface TimeSeriesDailyAdjustedRequest extends TimeSeriesBaseRequest {
     outputsize?: outputSizeType; 
 }
 
-export const createBaseTimeSeriesDailyAdjustedRequest = () => {
+export const createBaseTimeSeriesDailyAdjustedRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_DAILY_ADJUSTED"
     }
 }
@@ -60,9 +60,9 @@ export interface TimeSeriesWeeklyRequest extends TimeSeriesBaseRequest {
 
 }
 
-export const createBaseTimeSeriesWeeklyRequest = () => {
+export const createBaseTimeSeriesWeeklyRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_WEEKLY"
     }
 }
@@ -71,9 +71,9 @@ export interface TimeSeriesWeeklyAdjustedRequest extends TimeSeriesBaseRequest {
 
 }
 
-export const createBaseTimeSeriesWeeklyAdjustedRequest = () => {
+export const createBaseTimeSeriesWeeklyAdjustedRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_WEEKLY_ADJUSTED"
     }
 }
@@ -82,9 +82,9 @@ export interface TimeSeriesMonthlyRequest extends TimeSeriesBaseRequest {
     
 }
 
-export const createBaseTimeSeriesMonthlyRequest = () => {
+export const createBaseTimeSeriesMonthlyRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_MONTHLY"
     }
 }
@@ -93,9 +93,9 @@ export interface TimeSeriesMonthlyAdjustedRequest extends TimeSeriesBaseRequest 
     
 }
 
-export const createBaseTimeSeriesMonthlyAdjustedRequest = () => {
+export const createBaseTimeSeriesMonthlyAdjustedRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "TIME_SERIES_MONTHLY_ADJUSTED"
     }
 }
@@ -104,9 +104,9 @@ export interface TimeSeriesQuoteRequest extends TimeSeriesBaseRequest {
     
 }
 
-export const createBaseTimeSeriesQuoteRequest = () => {
+export const createBaseTimeSeriesQuoteRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "GLOBAL_QUOTE"
     }
 }
@@ -115,9 +115,9 @@ export interface TimeSeriesSearchRequest extends TimeSeriesBaseRequest {
     keywords: string
 }
 
-export const createBaseTimeSeriesSearchRequest = () => {
+export const createBaseTimeSeriesSearchRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "SYMBOL_SEARCH"
     }
 }
@@ -126,9 +126,9 @@ export interface TimeSeriesMarketStatusRequest extends BaseRequest {
     
 }
 
-export const createBaseTimeSeriesMarketStatusRequest = () => {
+export const createBaseTimeSeriesMarketStatusRequest = (apiKey?: string) => {
     return {
-        ...createBaseRequest(),
+        ...createBaseRequest(apiKey),
         function: "MARKET_STATUS"
     }
 }
