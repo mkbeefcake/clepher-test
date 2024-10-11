@@ -35,9 +35,12 @@ import {
     intervalType
 } from "../apis/requestTypes"
 
-import mockData from '../mock/response.json'
+import mockData1 from '../mock/response1.json'
+import mockData2 from '../mock/response2.json'
 import { 
     convertObjToTimeSeriesResponse, 
+    ResponseErrorResponse, 
+    ResponseMarketStatusResponse, 
     ResponseTimeSeriesResponse 
 } from "../apis/responseTypes"
 import MetaDataCard from "./cards/MetaData"
@@ -46,6 +49,7 @@ import Loading from "./loading/loading"
 import BasicDropdown from "./dropdowns/BasicDropDown"
 import BasicCard from "./cards/BasicCard"
 import BasicButton from "./button/BasicButton"
+import MarketStatusCard from "./cards/MarketStatusCard"
 
 const TimeSeries = () => {
 
@@ -181,9 +185,14 @@ const TimeSeries = () => {
     };
 
     const { data } = useSWR(apiUrl)
-    const response: ResponseTimeSeriesResponse | undefined = convertObjToTimeSeriesResponse(data);
+    const response: ResponseTimeSeriesResponse | ResponseErrorResponse | ResponseMarketStatusResponse 
+        = convertObjToTimeSeriesResponse(data);
 
     console.log(data)
+
+    const isTimeSeries = (obj:any): obj is ResponseTimeSeriesResponse => "Meta Data" in response && "Time Series" in response
+    const isMarketStatus = (obj:any): obj is ResponseMarketStatusResponse => "endpoint" in response && "markets" in response
+    const isErrorResponse = (obj:any): obj is ResponseErrorResponse => "Information" in response
 
     return (
         <div className='flex items-start justify-center h-screen space-x-6'>
@@ -214,14 +223,19 @@ const TimeSeries = () => {
                 />
             </BasicCard>
             <Suspense fallback={<Loading/>}>
-                {response && (
+                {isTimeSeries(response) && (
                     <>
                         <MetaDataCard metaData={response["Meta Data"]} />
                         <TradeChart data={response["Time Series"]} />
                     </>
                 )}
-                {!response && (
-                    <BasicCard title={JSON.stringify(data)} />
+                {isMarketStatus(response) && (
+                    <MarketStatusCard title={response.endpoint} markets={response.markets} />
+                )}
+                {isErrorResponse(response) && (
+                    <BasicCard title="Error Response">
+                        <div>{response["Information"]}</div>
+                    </BasicCard>
                 )}
             </Suspense>
         </div>
