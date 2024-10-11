@@ -1,16 +1,8 @@
 import { FC } from 'react';
-
-interface MetaData {
-    information: string;
-    symbol: string;
-    lastRefreshed: string;
-    interval: string;
-    outputSize: string;
-    timeZone: string;
-}
+import { ResponseMetaData } from '../../apis/responseTypes';
 
 interface MetaDataCardProps {
-    metaData: MetaData;
+    metaData: ResponseMetaData;
 }
 
 const MetaDataCard: FC<MetaDataCardProps> = ({ metaData }) => {
@@ -20,28 +12,28 @@ const MetaDataCard: FC<MetaDataCardProps> = ({ metaData }) => {
                 <h2 className="text-xl font-bold mb-4">Metadata Information</h2>
                 <ul className="space-y-2">
                     <li className="flex justify-between">
-                        <span className="font-medium">Information:</span>
-                        <span>{metaData.information}</span>
+                        <span className="font-bold">Information:</span>
+                        <span>{metaData.Information || ""}</span>
                     </li>
                     <li className="flex justify-between">
-                        <span className="font-medium">Symbol:</span>
-                        <span>{metaData.symbol}</span>
+                        <span className="font-bold">Symbol:</span>
+                        <span>{metaData.Symbol || ""}</span>
                     </li>
                     <li className="flex justify-between">
-                        <span className="font-medium">Last Refreshed:</span>
-                        <span>{metaData.lastRefreshed}</span>
+                        <span className="font-bold">Last Refreshed:</span>
+                        <span>{metaData['Last Refreshed'] || ""}</span>
                     </li>
                     <li className="flex justify-between">
-                        <span className="font-medium">Interval:</span>
-                        <span>{metaData.interval}</span>
+                        <span className="font-bold">Interval:</span>
+                        <span>{metaData.Interval || ""}</span>
                     </li>
                     <li className="flex justify-between">
-                        <span className="font-medium">Output Size:</span>
-                        <span>{metaData.outputSize}</span>
+                        <span className="font-bold">Output Size:</span>
+                        <span>{metaData['Output Size'] || ""}</span>
                     </li>
                     <li className="flex justify-between">
-                        <span className="font-medium">Time Zone:</span>
-                        <span>{metaData.timeZone}</span>
+                        <span className="font-bold">Time Zone:</span>
+                        <span>{metaData['Time Zone'] || ""}</span>
                     </li>
                 </ul>
             </div>

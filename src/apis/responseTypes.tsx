@@ -1,6 +1,6 @@
 import { removeNumericPrefixes } from "./utils";
 
-interface ResponseMetaData {
+export interface ResponseMetaData {
     "Information"?: string;
     "Symbol"?: string;
     "Last Refreshed"?: string; 
@@ -10,8 +10,8 @@ interface ResponseMetaData {
 }
 const convertObjToMetaData = (obj:any): ResponseMetaData => removeNumericPrefixes(obj)
 
-interface ResponseTimeSeriesEntry {
-    "open": string; 
+export interface ResponseTimeSeriesEntry {
+    "open": string;
     "high": string; 
     "low": string; 
     "close": string; 
@@ -19,7 +19,7 @@ interface ResponseTimeSeriesEntry {
 }
 const convertObjToTimeSeriesEntry = (obj:any): ResponseTimeSeriesEntry => removeNumericPrefixes(obj)
 
-interface ResponseTimeSeries {
+export interface ResponseTimeSeries {
     [timestamp: string]: ResponseTimeSeriesEntry; 
 }
 const convertObjToTimeSeries = (obj: any): ResponseTimeSeries => {
