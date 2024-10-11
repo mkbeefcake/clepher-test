@@ -195,7 +195,7 @@ const TimeSeries = () => {
 
     const { data } = useSWR(apiUrl)
     const response: ResponseTimeSeriesResponse | ResponseErrorResponse | ResponseMarketStatusResponse 
-        = convertObjToTimeSeriesResponse(mockData2);
+        = convertObjToTimeSeriesResponse(data);
 
     console.log(data)
 
