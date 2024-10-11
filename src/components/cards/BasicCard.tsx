@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 
 type Props = {
     title: string,
-    children: ReactNode
+    children?: ReactNode
 }
 
 const BasicCard: FC<Props> = ({ title, children }) => {

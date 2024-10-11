@@ -180,8 +180,10 @@ const TimeSeries = () => {
         }
     };
 
-    const { data, error } = useSWR(apiUrl)
-    const response: ResponseTimeSeriesResponse = convertObjToTimeSeriesResponse(data);
+    const { data } = useSWR(apiUrl)
+    const response: ResponseTimeSeriesResponse | undefined = convertObjToTimeSeriesResponse(data);
+
+    console.log(data)
 
     return (
         <div className='flex items-start justify-center h-screen space-x-6'>
@@ -212,14 +214,14 @@ const TimeSeries = () => {
                 />
             </BasicCard>
             <Suspense fallback={<Loading/>}>
-                {error && (
-                    <div>{JSON.stringify(error)}</div>
-                )}
-                {!error && (
+                {response && (
                     <>
                         <MetaDataCard metaData={response["Meta Data"]} />
                         <TradeChart data={response["Time Series"]} />
                     </>
+                )}
+                {!response && (
+                    <BasicCard title={JSON.stringify(data)} />
                 )}
             </Suspense>
         </div>

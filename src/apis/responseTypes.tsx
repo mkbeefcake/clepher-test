@@ -43,7 +43,8 @@ export interface ResponseTimeSeriesResponse {
     "Meta Data": ResponseMetaData;
     "Time Series": ResponseTimeSeries; 
 }
-export const convertObjToTimeSeriesResponse = (obj: any): ResponseTimeSeriesResponse => {
+
+export const convertObjToTimeSeriesResponse = (obj: any): ResponseTimeSeriesResponse | undefined => {
     let newData: any = {};
     for (const key in obj) {
         if (key === "Meta Data") {
@@ -53,6 +54,10 @@ export const convertObjToTimeSeriesResponse = (obj: any): ResponseTimeSeriesResp
             newData["Time Series"] = convertObjToTimeSeries(obj[key])
         }
     }
+
+    if (!newData["Meta Data"] || !newData["Time Series"])
+        return undefined;
+
     return newData;
 }
 
