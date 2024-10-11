@@ -112,7 +112,7 @@ export const createBaseTimeSeriesQuoteRequest = () => {
 }
 
 export interface TimeSeriesSearchRequest extends TimeSeriesBaseRequest {
-    
+    keywords: string
 }
 
 export const createBaseTimeSeriesSearchRequest = () => {
@@ -122,7 +122,7 @@ export const createBaseTimeSeriesSearchRequest = () => {
     }
 }
 
-export interface TimeSeriesMarketStatusRequest extends TimeSeriesBaseRequest {
+export interface TimeSeriesMarketStatusRequest extends BaseRequest {
     
 }
 
